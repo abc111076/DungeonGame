@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.playerGo;    
+        player = PlayerManager.Instance.PlayerGameObject;    
     }
 
     // Update is called once per frame
