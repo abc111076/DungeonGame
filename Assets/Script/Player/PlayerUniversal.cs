@@ -30,20 +30,19 @@ public class PlayerUniversal : PlayerBase
 
     public void ChangePlayerState(PlayerState state)
     {
+        if (pb_PlayerState == state) return;
+
         switch(state)
         {
             case PlayerState.Idle:
                 break;
-            case PlayerState.SlowRun:
+            case PlayerState.Walk:
                 break;
             case PlayerState.Attack:
                 break;
         }
 
-        if (pb_PlayerState != state)
-        {
-            pb_PlayerState = state;
-            PlayerManager.Instance.SetPlayerStateToManager(pb_PlayerState);
-        }
+        pb_PlayerState = state;
+        PlayerManager.Instance.SetPlayerStateToManager(pb_PlayerState);
     }
 }
