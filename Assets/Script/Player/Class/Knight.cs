@@ -5,19 +5,44 @@ using UnityEngine;
 public class Knight : PlayerUniversal
 {
     [SerializeField]
-    private PlayerState ps;
+    private Transform rightHand;
+    [SerializeField]
+    private GameObject weaponPrefab;
+    [SerializeField]
+    private Transform weaponSpawnPoint;
+    [SerializeField]
+    private GameObject swordAttackArea;
+
     // Start is called before the first frame update
     void Start()
     {
-        CreatePlayer(ClassType.Knight, PlayerState.Idle, 1000, 10, 5);
-        GetComponent<PlayerController>().ChangePlayerStateHandler += ChangePlayerState;
-        ps = PlayerState.Idle;
+        Init();
     }
 
-    private void Update()
+    private void Init()
     {
-        if(ps != pb_PlayerState)
-            ps = pb_PlayerState;
+        CreatePlayer(ClassType.Knight, WeaponType.Sword, PlayerState.Idle, 1000, 10, 5);
+        PlayerController pc = GetComponent<PlayerController>();
+        pc.ChangePlayerStateHandler += ChangePlayerState;
+        pc.FinishAttackHandler += FinishAttack;
+        SetWeapon();
+    }
+
+    private void SetWeapon()
+    {
+        GameObject weaponGO = Instantiate(weaponPrefab, weaponSpawnPoint.position, weaponSpawnPoint.rotation, rightHand);
+        weaponGO.transform.localScale = weaponSpawnPoint.localScale;
+    }
+
+    public override void DoDamage()
+    {
+        if (pb_WeaponType == WeaponType.Sword)
+            swordAttackArea.SetActive(true);
+    }
+
+    public override void FinishAttack()
+    {
+        swordAttackArea.SetActive(false);
     }
 
     private void OnGUI()

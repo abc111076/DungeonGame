@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public sealed class PlayerController : MonoBehaviour
 {
     public enum AnimatorParamName { isMoving = 0, attack }
 
     public delegate void ChangePlayerStateDelegate(PlayerState state);
     public event ChangePlayerStateDelegate ChangePlayerStateHandler;
+
+    public delegate void FinishAttackDelegate();
+    public event FinishAttackDelegate FinishAttackHandler;
+
+    public delegate void DoDamageDelegate();
+    public event DoDamageDelegate DoDamageHandler;
 
     public float speed;
 
@@ -76,10 +82,14 @@ public class PlayerController : MonoBehaviour
         {
             if (string.Equals(clips[i].name, "SwordSlash"))
             {
-                AnimationEvent events = new AnimationEvent();
-                events.functionName = "FinishAttack";
-                events.time = clips[i].length;
-                clips[i].AddEvent(events);
+                AnimationEvent finishAttackEvent = new AnimationEvent();
+                finishAttackEvent.functionName = "FinishAttack";
+                finishAttackEvent.time = clips[i].length;
+                clips[i].AddEvent(finishAttackEvent);
+                AnimationEvent doDamageEvent = new AnimationEvent();
+                doDamageEvent.functionName = "DoDamage";
+                doDamageEvent.time = 0.83f;
+                clips[i].AddEvent(doDamageEvent);
                 break;
             }
         }
@@ -94,5 +104,12 @@ public class PlayerController : MonoBehaviour
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
             ChangePlayerStateHandler(PlayerState.Walk);
 
+        FinishAttackHandler();
+    }
+
+    private void DoDamage()
+    {
+        if(DoDamageHandler != null)
+            DoDamageHandler();
     }
 }

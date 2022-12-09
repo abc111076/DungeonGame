@@ -5,23 +5,26 @@ using UnityEngine;
 public class PlayerBase : MonoBehaviour
 {
     protected ClassType pb_ClassType;
+    protected WeaponType pb_WeaponType;
     protected PlayerState pb_PlayerState;
     protected int pb_HealthPoints;
     protected int pb_Attack;
     protected int pb_Speed;
 }
 
-public class PlayerUniversal : PlayerBase
+public abstract class PlayerUniversal : PlayerBase
 {
-    protected ClassType roClassType { get { return pb_ClassType; } }
-    protected PlayerState roPlayerState { get { return pb_PlayerState; } }
-    protected int roHealthPoints { get { return pb_HealthPoints; } }
-    protected int roAttack { get { return pb_Attack; } }
-    protected int roSpeed { get { return pb_Speed; } }
+    protected ClassType ROClassType { get { return pb_ClassType; } }
+    protected WeaponType ROWeaponType { get { return pb_WeaponType; } }
+    protected PlayerState ROPlayerState { get { return pb_PlayerState; } }
+    protected int ROHealthPoints { get { return pb_HealthPoints; } }
+    protected int ROAttack { get { return pb_Attack; } }
+    protected int ROSpeed { get { return pb_Speed; } }
 
-    public void CreatePlayer(ClassType type, PlayerState state, int hp, int attack, int speed)
+    protected void CreatePlayer(ClassType ctype, WeaponType wtype, PlayerState state, int hp, int attack, int speed)
     {
-        pb_ClassType = type;
+        pb_ClassType = ctype;
+        pb_WeaponType = wtype;
         pb_PlayerState = state;
         pb_HealthPoints = hp;
         pb_Attack = attack;
@@ -45,4 +48,8 @@ public class PlayerUniversal : PlayerBase
         pb_PlayerState = state;
         PlayerManager.Instance.SetPlayerStateToManager(pb_PlayerState);
     }
+
+    public abstract void DoDamage();
+
+    public abstract void FinishAttack();
 }
