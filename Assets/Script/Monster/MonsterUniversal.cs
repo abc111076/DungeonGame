@@ -26,13 +26,13 @@ public abstract class MonsterUniversal : MonsterBase
 
     }
 
-    public void OnHit(int damage)
+    public void OnHit(int index, int damage, MonsterManager.CheckMonsterIsDead callback)
     {
         mb_HealthPoints -= damage;
 
         if(mb_HealthPoints <= 0)
         {
-            Destroy(this.gameObject);
+            callback(index);
         }
     }
 }

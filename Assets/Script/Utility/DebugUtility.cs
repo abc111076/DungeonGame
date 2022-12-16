@@ -17,7 +17,7 @@ public class DebugUtility
     public static void DebugLogWithTag(string tag, string log, LogColor color = LogColor.aqua)
     {
         string s_color = color.ToString();
-        Debug.Log("<color=orange>" + tag + "</color>" + " === " + "<color=" + s_color + ">" + log + "</color>");
+        Debug.Log("<color=orange>" + tag + "</color>" + "  _===_  " + "<color=" + s_color + ">" + log + "</color>");
         //Debug.Log("This is " + "<color=aqua>" + "Sample Message 1" + "</color>" + ".\n" +
         //          "This is " + "<color=black>" + "Sample Message 2" + "</color>" + ".\n" +
         //          "This is " + "<color=blue>" + "Sample Message 3" + "</color>" + ".\n" +

@@ -8,4 +8,9 @@ public sealed class GameManager : SingletonMonoBehaviour<GameManager>
     {
         DontDestroyOnLoad(this);
     }
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
 }

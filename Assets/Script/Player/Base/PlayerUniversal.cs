@@ -14,12 +14,14 @@ public class PlayerBase : MonoBehaviour
 
 public abstract class PlayerUniversal : PlayerBase
 {
-    protected ClassType ROClassType { get { return pb_ClassType; } }
-    protected WeaponType ROWeaponType { get { return pb_WeaponType; } }
-    protected PlayerState ROPlayerState { get { return pb_PlayerState; } }
-    protected int ROHealthPoints { get { return pb_HealthPoints; } }
-    protected int ROAttack { get { return pb_Attack; } }
-    protected int ROSpeed { get { return pb_Speed; } }
+    public ClassType ROClassType { get { return pb_ClassType; } }
+    public WeaponType ROWeaponType { get { return pb_WeaponType; } }
+    public PlayerState ROPlayerState { get { return pb_PlayerState; } }
+    public int ROHealthPoints { get { return pb_HealthPoints; } }
+    public int ROAttack { get { return pb_Attack; } }
+    public int ROSpeed { get { return pb_Speed; } }
+
+    private const string TAG = "PlayerUniversal";
 
     protected void CreatePlayer(ClassType ctype, WeaponType wtype, PlayerState state, int hp, int attack, int speed)
     {
@@ -42,6 +44,9 @@ public abstract class PlayerUniversal : PlayerBase
             case PlayerState.Walk:
                 break;
             case PlayerState.Attack:
+                break;
+            default:
+                DebugUtility.DebugLogWithTag(TAG, "Something wrong in ChangePlayerState");
                 break;
         }
 

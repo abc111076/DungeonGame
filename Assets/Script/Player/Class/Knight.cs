@@ -21,7 +21,7 @@ public class Knight : PlayerUniversal
 
     private void Init()
     {
-        CreatePlayer(ClassType.Knight, WeaponType.Sword, PlayerState.Idle, 1000, 10, 5);
+        CreatePlayer(ClassType.Knight, WeaponType.Sword, PlayerState.Idle, 1000, 10, 3);
         PlayerController pc = GetComponent<PlayerController>();
         pc.ChangePlayerStateHandler += ChangePlayerState;
         pc.FinishAttackHandler += FinishAttack;
@@ -53,7 +53,7 @@ public class Knight : PlayerUniversal
         int height = 40;
         GUIContent[] contents = new GUIContent[]
         {
-               new GUIContent($"Class:{pb_Attack}"),
+               new GUIContent($"Class:{pb_ClassType}"),
                new GUIContent($"State:{pb_PlayerState }"),
                new GUIContent($"Hp:{pb_HealthPoints}"),
                new GUIContent($"Atk:{pb_Attack}"),
